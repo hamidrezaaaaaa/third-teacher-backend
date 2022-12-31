@@ -1,11 +1,28 @@
 const models = require("../models");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const uniqId =require('uniqid');
+const uniqId = require("uniqid");
+const Validator = require("fastest-validator");
 
 function signUp(req, res) {
-  models.users
-    .findOne({ where: { email: req.body.email } })
+  const schema = {
+    email: { type: "string", optional: false },
+    password: { type: "string", optional: false },
+    firstname: { type: "string", optional: false },
+    lastname: { type: "string", optional: false },
+    birtday: { type: "string", optional: false },
+    education: { type: "string", optional: false },
+    university: { type: "string", optional: false },
+    job: { type: "string", optional: false },
+    mobilenumber: { type: "string", optional: false },
+    province: { type: "string", optional: false },
+    address: { type: "string", optional: false },
+    postcode: { type: "string", optional: false },
+  };
+
+  const v = new Validator();
+
+  models.User.findOne({ where: { email: req.body.email } })
     .then((result) => {
       if (result) {
         res.status(409).json({
@@ -15,52 +32,56 @@ function signUp(req, res) {
         bcryptjs.genSalt(10, function (err, salt) {
           bcryptjs.hash(req.body.password, salt, function (err, hash) {
             const user = {
-              // username: req.body.username,
               email: req.body.email,
               password: hash,
               userId: uniqId(),
-              firstName: req.body.firstName,
-              lastName: req.body.lastName,
-              birthDay: req.body.birthDay,
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              birtday: req.body.birtday,
               education: req.body.education,
               university: req.body.university,
               job: req.body.job,
-              mobileNumber: req.body.mobileNumber,
+              mobilenumber: req.body.mobilenumber,
               province: req.body.province,
               address: req.body.address,
-              postCode: req.body.postCode,
+              postcode: req.body.postcode,
             };
+            const validationResponse = v.validate(user, schema);
 
-            models.users
-              .create(user)
-              .then((result) => {
-                res.status(201).json({
-                  message: "User created successful",
-                });
-              })
-              .catch((err) => {
-                
-                res.status(500).json({
-                  message: "Something went wrong",
-                  error:err
-                });
+            if (validationResponse !== true) {
+              res.status(400).json({
+                message: "validation failed",
+                errors: validationResponse,
               });
+            } else {
+              models.User.create(user)
+                .then((result) => {
+                  res.status(201).json({
+                    message: "User created successful",
+                  });
+                })
+                .catch((err) => {
+                  res.status(500).json({
+                    message: "Something went wrong",
+                    error: err,
+                  });
+                });
+            }
           });
         });
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "Something went wrong",
-        error:err
+        error: err,
       });
     });
 }
 
 function logIn(req, res) {
-  models.users
-    .findOne({ where: { email: req.body.email } })
+  models.User.findOne({ where: { email: req.body.email } })
     .then((user) => {
       if (user === null) {
         res.status(401).json({ message: "invalid credentials!" });
@@ -73,7 +94,7 @@ function logIn(req, res) {
               const token = jwt.sign(
                 {
                   email: user.email,
-                  userId: user.id,
+                  userId: user.userId,
                 },
                 process.env.JWT_KEY,
                 function (err, token) {
@@ -98,7 +119,40 @@ function logIn(req, res) {
     });
 }
 
+function update(req, res) {
+  const id = req.params.id;
+
+  const updatedUser = {
+    email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    birtday: req.body.birtday,
+    education: req.body.education,
+    university: req.body.university,
+    job: req.body.job,
+    mobilenumber: req.body.mobilenumber,
+    province: req.body.province,
+    address: req.body.address,
+    postcode: req.body.postcode,
+  };
+
+  models.User.update(updatedUser, { where: { userId: id } })
+    .then((result) => {
+      res.status(200).json({
+        message: "User updated.",
+        user: updatedUser,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        error: err,
+      });
+    });
+}
+
 module.exports = {
   signUp: signUp,
   logIn: logIn,
+  update: update,
 };
