@@ -25,7 +25,7 @@ function save(req, res) {
       errors: validationResponse,
     });
   } else {
-    models.philosophes
+    models.Philosophes
       .create(philosophe)
       .then((result) => {
         res.status(201).json({
@@ -45,7 +45,7 @@ function save(req, res) {
 function show(req, res) {
   const id = req.params.id;
 
-  models.philosophes
+  models.Philosophes
     .findByPk(id)
     .then((result) => {
       if (result) {
@@ -65,7 +65,7 @@ function show(req, res) {
 }
 
 function index(req, res) {
-  models.philosophes
+  models.Philosophes
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -88,7 +88,7 @@ function update(req, res) {
     summary: req.body.summary,
   };
 
-  models.philosophes
+  models.Philosophes
     .update(updatedPhilosophe, { where: { id: id } })
     .then((result) => {
       res.status(200).json({
@@ -107,7 +107,7 @@ function update(req, res) {
 function destroy(req, res) {
   const id = req.params.id;
 
-  models.philosophes
+  models.Philosophes
     .destroy({ where: { id: id } })
     .then((result) => {
       res.status(200).json({
