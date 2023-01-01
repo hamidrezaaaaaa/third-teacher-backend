@@ -151,8 +151,45 @@ function update(req, res) {
     });
 }
 
+function getInfo(req, res) {
+  const id = req.params.id;
+  models.User.findByPk(id)
+    .then((user) => {
+      if (user) {
+        res.status(200).json({
+          user: user,
+        });
+      } else {
+        res.status(404).json({
+          message: "User not found",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        error: err,
+      });
+    });
+}
+
+function getallUser(req,res){
+  models.User.findAll()
+  .then(users=>{
+    res.status(200).json(users)
+  })
+  .catch(err=>{
+    res.status(500).json({
+      message:'Something went wrong',
+      error:err
+    })
+  })
+}
+
 module.exports = {
   signUp: signUp,
   logIn: logIn,
   update: update,
+  getInfo:getInfo,
+  getallUser:getallUser
 };
