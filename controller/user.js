@@ -173,23 +173,47 @@ function getInfo(req, res) {
     });
 }
 
-function getallUser(req,res){
+function getallUser(req, res) {
   models.User.findAll()
-  .then(users=>{
-    res.status(200).json(users)
-  })
-  .catch(err=>{
-    res.status(500).json({
-      message:'Something went wrong',
-      error:err
+    .then((users) => {
+      res.status(200).json(users);
     })
-  })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        error: err,
+      });
+    });
+}
+
+function removeUser(req, res) {
+  const id = req.params.id;
+
+  models.User.destroy({ where: { userId: id } })
+    .then((result) => {
+      if (result) {
+        res.status(200).json({
+          message: "User deleted successfully.",
+        });
+      } else {
+        res.status(409).json({
+          message: "User not found.",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        error: err,
+      });
+    });
 }
 
 module.exports = {
   signUp: signUp,
   logIn: logIn,
   update: update,
-  getInfo:getInfo,
-  getallUser:getallUser
+  getInfo: getInfo,
+  getallUser: getallUser,
+  removeUser: removeUser,
 };

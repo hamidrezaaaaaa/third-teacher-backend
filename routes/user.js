@@ -7,8 +7,9 @@ const router =express.Router();
 
 router.get('/',userController.getallUser);
 router.post('/sign-up',userController.signUp);
+router.delete('/:id',userController.removeUser);
 router.post('/login',userController.logIn);
-router.patch("/:id", checkAuth.checkAuth, userController.update);
+router.patch("/:id",  userController.update);
 router.get("/:id", checkAuth.checkAuth, userController.getInfo);
 
 
