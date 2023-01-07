@@ -3,15 +3,15 @@ const models = require("../models");
 
 function save(req, res) {
   const philosophe = {
-    name: req.body.name,
-    imageUrl: req.file.filename,
+    personal: req.body.personal,
+    imageurl: req.file.filename,
     description: req.body.description,
     summary: req.body.summary,
   };
 
   const schema = {
-    imageUrl:{type: "string", optional:false},
-    name: { type: "string", optional: false },
+    imageurl:{type: "string", optional:false},
+    personal: { type: "string", optional: false },
     description: { type: "string", optional: false },
     summary: { type: "string", optional: false},
   };
@@ -82,8 +82,8 @@ function update(req, res) {
   const id = req.params.id;
 
   const updatedPhilosophe = {
-    name: req.body.name,
-    imageUrl: req.body.imageUrl,
+    personal: req.body.personal,
+    imageurl: req.file.filename,
     description: req.body.description,
     summary: req.body.summary,
   };

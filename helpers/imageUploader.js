@@ -1,4 +1,6 @@
 const multer = require("multer");
+const uniqId = require("uniqid");
+
 const path = require("path");
 
 const storage = multer.diskStorage({
@@ -6,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    cb(null,  file.originalname);
+    cb(null, uniqId(file.originalname) );
   },
 });
 
