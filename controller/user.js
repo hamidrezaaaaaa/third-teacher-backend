@@ -153,7 +153,7 @@ function update(req, res) {
 
 function getInfo(req, res) {
   const id = req.params.id;
-  models.User.findByPk(id)
+  models.User.findOne({ where: { userId: id } })
     .then((user) => {
       if (user) {
         res.status(200).json({
