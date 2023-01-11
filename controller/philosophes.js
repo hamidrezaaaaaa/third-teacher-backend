@@ -3,15 +3,15 @@ const models = require("../models");
 
 function save(req, res) {
   const philosophe = {
-    name: req.body.name,
-    imageUrl: req.file.filename,
+    personal: req.body.personal,
+    imageurl: req.file.filename,
     description: req.body.description,
     summary: req.body.summary,
   };
 
   const schema = {
-    imageUrl:{type: "string", optional:false},
-    name: { type: "string", optional: false },
+    imageurl:{type: "string", optional:false},
+    personal: { type: "string", optional: false },
     description: { type: "string", optional: false },
     summary: { type: "string", optional: false},
   };
@@ -25,7 +25,7 @@ function save(req, res) {
       errors: validationResponse,
     });
   } else {
-    models.philosophes
+    models.Philosophes
       .create(philosophe)
       .then((result) => {
         res.status(201).json({
@@ -45,7 +45,7 @@ function save(req, res) {
 function show(req, res) {
   const id = req.params.id;
 
-  models.philosophes
+  models.Philosophes
     .findByPk(id)
     .then((result) => {
       if (result) {
@@ -65,7 +65,7 @@ function show(req, res) {
 }
 
 function index(req, res) {
-  models.philosophes
+  models.Philosophes
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -82,13 +82,13 @@ function update(req, res) {
   const id = req.params.id;
 
   const updatedPhilosophe = {
-    name: req.body.name,
-    imageUrl: req.body.imageUrl,
+    personal: req.body.personal,
+    imageurl: req.file.filename,
     description: req.body.description,
     summary: req.body.summary,
   };
 
-  models.philosophes
+  models.Philosophes
     .update(updatedPhilosophe, { where: { id: id } })
     .then((result) => {
       res.status(200).json({
@@ -107,7 +107,7 @@ function update(req, res) {
 function destroy(req, res) {
   const id = req.params.id;
 
-  models.philosophes
+  models.Philosophes
     .destroy({ where: { id: id } })
     .then((result) => {
       res.status(200).json({

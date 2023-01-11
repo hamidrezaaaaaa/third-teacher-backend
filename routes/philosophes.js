@@ -7,13 +7,17 @@ const router = express.Router();
 
 router.post(
   "/",
-  checkAuth.checkAuth,
-  imageUploader.upload.single("imageUrl"),
+  // checkAuth.checkAuth,
+  imageUploader.upload.single("imageurl"),
   philosophesController.save
 );
 router.get("/:id", philosophesController.show);
 router.get("/", philosophesController.index);
-router.patch("/:id", checkAuth.checkAuth, philosophesController.update);
-router.delete("/:id", checkAuth.checkAuth, philosophesController.destroy);
+router.patch(
+  "/:id",
+  imageUploader.upload.single("imageurl"),
+  philosophesController.update
+);
+router.delete("/:id", philosophesController.destroy);
 
 module.exports = router;
