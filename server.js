@@ -5,4 +5,11 @@ const port = 5000;
 
 const server = http.createServer(app);
 
-server.listen(port);
+const db = require("./models");
+db.sequelize.sync()
+.then(()=>{
+    server.listen(port);
+})
+.catch()
+
+
