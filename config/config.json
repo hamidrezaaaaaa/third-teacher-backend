@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
+    "username": "darvish",
     "password": "H@mid12893307",
-    "database": "db-third-teacher",
-    "host": "localhost",
+    "database": "third-teacher-db",
+    "host": "31.7.74.129",
     "dialect": "mysql"
   },
   "test": {
