@@ -6,12 +6,14 @@ const app = express();
 app.use(cors());
 
 const philosophesRoute = require("./routes/philosophes");
+const schoolsRoute =require("./routes/schools");
 const userRoute=require("./routes/user");
 
 app.use(bodyParser.json());
 app.use('/uploads',express.static('uploads'));
 
 app.use("/philosophes", philosophesRoute);
+app.use("/schools",schoolsRoute);
 app.use("/user",userRoute);
 
 module.exports = app;
