@@ -8,14 +8,14 @@ const router = express.Router();
 router.post(
   "/",
   // checkAuth.checkAuth,
-  imageUploader.upload.single("imageurl"),
+  imageUploader.upload.single("image"),
   membersController.save
 );
 router.get("/:id", membersController.show);
 router.get("/", membersController.index);
 router.patch(
   "/:id",
-  imageUploader.upload.single("imageurl"),
+  imageUploader.upload.single("image"),
   membersController.update
 );
 router.delete("/:id", membersController.destroy);

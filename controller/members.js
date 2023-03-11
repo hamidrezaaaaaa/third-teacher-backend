@@ -11,7 +11,7 @@ function save(req, res) {
   };
 
   const schema = {
-    imageurl:{type: "string", optional:false},
+    image:{type: "string", optional:false},
     firstName: { type: "string", optional: false },
     lastName: { type: "string", optional: false },
     education: { type: "string", optional: false },
