@@ -3,7 +3,7 @@ const models = require("../models");
 
 function save(req, res) {
   const post = {
-    category: req.body.name,
+    category: req.body.category,
     imageurl: req.file.filename,
     description: req.body.description,
   };
@@ -81,7 +81,7 @@ function update(req, res) {
   const id = req.params.id;
 
   const updatedPost = {
-    category: req.body.name,
+    category: req.body.category,
     imageurl: req.file.filename,
     description: req.body.description,
   };
