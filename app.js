@@ -10,6 +10,7 @@ const educationRoute =require("./routes/education");
 const schoolsRoute =require("./routes/schools");
 const membersRoute=require("./routes/members");
 const sayingsRoute=require("./routes/sayings");
+const booksRoute=require("./routes/books");
 const userRoute=require("./routes/user");
 
 app.use(bodyParser.json());
@@ -20,6 +21,7 @@ app.use("/educations",educationRoute);
 app.use("/sayings",sayingsRoute);
 app.use("/members",membersRoute);
 app.use("/schools",schoolsRoute);
+app.use("/books",booksRoute);
 app.use("/user",userRoute);
 
 module.exports = app;
