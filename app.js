@@ -5,6 +5,8 @@ const cors = require('cors')
 const app = express();
 app.use(cors());
 
+
+
 const philosophesRoute = require("./routes/philosophes");
 const educationRoute =require("./routes/education");
 const schoolsRoute =require("./routes/schools");
@@ -15,6 +17,7 @@ const userRoute=require("./routes/user");
 
 app.use(bodyParser.json());
 app.use('/uploads',express.static('uploads'));
+app.use("/documents",express.static('documnets'));
 
 app.use("/philosophes", philosophesRoute);
 app.use("/educations",educationRoute);
