@@ -10,6 +10,6 @@ db.sequelize.sync()
 .then(()=>{
     server.listen(port);
 })
-.catch()
+.catch(err=>{console.log(err)})
 
 

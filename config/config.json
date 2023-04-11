@@ -3,7 +3,7 @@
     "username": "darvish",
     "password": "H@mid12893307",
     "database": "third-teacher-db",
-    "host": "212.33.199.12",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
