@@ -2,8 +2,8 @@
   "development": {
     "username": "hamid",
     "password": "Hamid@09134509545",
-    "database": "third_teacher_db",
-    "host": "212.33.199.12:3306",
+    "database": "tt_db",
+    "host": "localhost:3306",
     "dialect": "mysql"
   },
   "test": {
