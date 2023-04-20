@@ -3,7 +3,7 @@
     "username": "hamid",
     "password": "Hamid@09134509545",
     "database": "tt_db",
-    "host": "localhost:3306",
+    "host": "212.33.199.12",
     "dialect": "mysql"
   },
   "test": {
