@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken");
 const uniqId = require("uniqid");
 const Validator = require("fastest-validator");
 
-
+// In-memory token blacklist
+const blacklist = [];
+ 
 function signUp(req, res) {
   const schema = {
     email: { type: "string", optional: false },
@@ -100,7 +102,6 @@ function logIn(req, res) {
                 },
                 process.env.JWT_KEY,
                 function (err, token) {
-
                   res.status(200).json({
                     message: "Authentication successful ",
                     token: token,
@@ -212,6 +213,30 @@ function removeUser(req, res) {
     });
 }
 
+
+
+// Define a logout route
+function logout(req, res) {
+  const token = req.body.token;
+  const id = req.params.id;
+  models.User.findOne({ where: { userId: id } })
+  .then((result)=>{
+    blacklist.push(token);
+    res.status(200).json({
+      message: "Logout successfully.",
+    });
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      message: "Something went wrong",
+      error: err,
+    });
+  })
+  
+}
+
+
+
 module.exports = {
   signUp: signUp,
   logIn: logIn,
@@ -219,4 +244,6 @@ module.exports = {
   getInfo: getInfo,
   getallUser: getallUser,
   removeUser: removeUser,
+  logout: logout,
+  blacklist:blacklist
 };
