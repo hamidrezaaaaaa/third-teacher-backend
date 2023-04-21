@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const uniqId = require("uniqid");
 const Validator = require("fastest-validator");
 
+const JWT_KEY = "Sec_ret#@";
+
 function signUp(req, res) {
   const schema = {
     email: { type: "string", optional: false },
@@ -96,7 +98,7 @@ function logIn(req, res) {
                   email: user.email,
                   userId: user.userId,
                 },
-                process.env.JWT_KEY,
+                JWT_KEY,
                 function (err, token) {
                   res.status(200).json({
                     message: "Authentication successful ",
