@@ -8,6 +8,7 @@ const app = express();
 app.use(cors());
 
 const philosophesRoute = require("./routes/philosophes");
+const competitionRoute=require("./routes/competition");
 const educationRoute = require("./routes/education");
 const researchRoute = require("./routes/research");
 const schoolsRoute = require("./routes/schools");
@@ -22,6 +23,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/documents", express.static("documents"));
 
 app.use("/philosophes", philosophesRoute);
+app.use("/competition",competitionRoute);
 app.use("/educations", educationRoute);
 app.use("/research", researchRoute);
 app.use("/sayings", sayingsRoute);
