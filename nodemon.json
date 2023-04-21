@@ -1,5 +1,5 @@
 {
-    "env":{
-        "JWT_KEY":"Sec_ret#@"
-    }
+  "env": {
+    "JWT_KEY": "Sec_ret#@"
   }
+}
