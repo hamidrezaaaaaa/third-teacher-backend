@@ -219,9 +219,9 @@ function removeUser(req, res) {
 function logout(req, res) {
   const token = req.body.token;
   const id = req.params.id;
+  blacklist.push(token);
   models.User.findOne({ where: { userId: id } })
-  .then((result)=>{
-    blacklist.push(token);
+  .then((result)=>{ 
     res.status(200).json({
       message: "Logout successfully.",
     });
