@@ -16,6 +16,7 @@ const membersRoute = require("./routes/members");
 const sayingsRoute = require("./routes/sayings");
 const ordersRoute = require("./routes/orders");
 const booksRoute = require("./routes/books");
+const aboutRoute =require("./routes/about");
 const userRoute = require("./routes/user");
 
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use("/members", membersRoute);
 app.use("/schools", schoolsRoute);
 app.use("/orders", ordersRoute);
 app.use("/books", booksRoute);
+app.use("/about",aboutRoute);
 app.use("/user", userRoute);
 
 module.exports = app;
