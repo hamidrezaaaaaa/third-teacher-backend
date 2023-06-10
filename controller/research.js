@@ -10,7 +10,7 @@ function save(req, res) {
     researchId:uniqId(),
     writer:req.body.writer,
     publicationYear:req.body.publicationYear,
-    pdf:req.files.pdf[0].filename,
+    pdf:req.files.pdf ? req.files.pdf[0].filename:null,
   };
 
   const schema = {
@@ -19,7 +19,7 @@ function save(req, res) {
     writer: { type: "string", optional: false },
     summary: { type: "string", optional: false},
     publicationYear: { type: "string", optional: false},
-    pdf: { type: "string", optional: false},
+    pdf: { type: "string", optional: true},
   };
 
   const v = new Validator();
